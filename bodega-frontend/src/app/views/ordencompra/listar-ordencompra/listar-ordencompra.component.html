@@ -1,0 +1,44 @@
+<h5>Lista de Ordenes de Compra</h5>
+
+<table class="table table-striped">
+  <thead class="table-dark">
+    <tr>
+      <th>ID</th>
+      <th>Fecha de O.C.</th>
+      <th>proveedor</th>
+      <th>Fecha de Registro de O.C.</th>
+      <th>Valor Total</th>
+      <th>Opciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor= "let ordencompra of listaOrdencompras
+    | paginate
+    : {
+        itemsPerPage: tableSize,
+        currentPage: page,
+        totalItems: count
+      };
+    let i = index">
+
+      <td>{{i+1}}</td>
+      <td>{{ordencompra.fechaCompra}}</td>
+      <td>{{ordencompra.proveedor}}</td>
+      <td>{{ordencompra.fechaRegistroOrdenCompra}}</td>
+      <td>{{ordencompra.valorTotal}}</td>
+      <td>
+
+        <button (click)="verDetallesOrdencompra(ordencompra.id)" class="btn btn-primary" style="margin-left : 10px;">Detalles</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div class="d-flex justify-content-center">
+  <pagination-controls
+    previousLabel="Prev"
+    nextLabel="Next"
+    (pageChange)="onTableDataChange($event)"
+  >
+  </pagination-controls>
+</div>
+

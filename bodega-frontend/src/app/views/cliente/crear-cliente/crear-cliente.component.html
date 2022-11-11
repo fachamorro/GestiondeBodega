@@ -1,0 +1,220 @@
+<div class="col-md-6 offset-md-3">
+  <h2>Registro de Clientes</h2>
+  <form (ngSubmit)="onSubmit()" #clienteForm="ngForm">
+    <input
+      type="hidden"
+      class="form-control"
+      id="id"
+      [(ngModel)]="cliente.id"
+      name="id"
+    />
+
+    <div class="form-group">
+      <label>DUI</label>
+      <input
+        type="text"
+        class="form-control"
+        id="dui"
+        [(ngModel)]="cliente.dui"
+        name="dui"
+        required
+        placeholder="Digite el Numero de Identificación (DUI) del cliente"
+        minlength="10"
+        maxlength="10"
+        pattern="[0-9]*"
+        #dui="ngModel"
+      />
+      <div
+        class="alert alert-danger"
+        *ngIf="dui.invalid && (dui.dirty || dui.touched)"
+      >
+        <div *ngIf="dui.errors?.['required']">
+          El DUI del cliente son obligatorios
+        </div>
+        <div *ngIf="dui.errors?.['minlength']">
+          El DUI del cliente debe contener 10 números
+        </div>
+        <div *ngIf="dui.errors?.['maxlength']">
+          El DUI del cliente debe contener 10 números
+        </div>
+        <div *ngIf="dui.errors?.['pattern']">
+          El DUI del cliente debe contener solo números
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Nombres</label>
+      <input
+        type="text"
+        class="form-control"
+        oninput="this.value = this.value.toUpperCase()"
+        (blur)="cliente.nombres = eliminarEspaciosEnBlanco(cliente.nombres)"
+        id="nombres"
+        [(ngModel)]="cliente.nombres"
+        name="nombres"
+        required
+        minlength="3"
+        maxlength="30"
+        placeholder="Digite el nombre del cliente "
+        #nombres="ngModel"
+      />
+      <div
+        class="alert alert-danger"
+        *ngIf="nombres.invalid && (nombres.dirty || nombres.touched)"
+      >
+        <div *ngIf="nombres.errors?.['required']">
+          El nombre del cliente son obligatorios
+        </div>
+        <div *ngIf="nombres.errors?.['minlength']">
+          El nombre del cliente deben contener como minimo 3 caracteres
+        </div>
+        <div *ngIf="nombres.errors?.['maxlength']">
+          El nombre del cliente deben contener como maximo 30 caracteres
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Apellidos</label>
+      <input
+        type="text"
+        class="form-control"
+        oninput="this.value = this.value.toUpperCase()"
+        (blur)="cliente.apellidos = eliminarEspaciosEnBlanco(cliente.apellidos)"
+        id="apellidos"
+        [(ngModel)]="cliente.apellidos"
+        name="apellidos"
+        required
+        minlength="3"
+        maxlength="30"
+        placeholder="Digite el apellido del cliente "
+        #apellidos="ngModel"
+      />
+      <div
+        class="alert alert-danger"
+        *ngIf="apellidos.invalid && (apellidos.dirty || apellidos.touched)"
+      >
+        <div *ngIf="apellidos.errors?.['required']">
+          El apellido del cliente son obligatorios
+        </div>
+        <div *ngIf="apellidos.errors?.['minlength']">
+          El apellido del cliente deben contener como minimo 3 caracteres
+        </div>
+        <div *ngIf="apellidos.errors?.['maxlength']">
+          El apellido del cliente deben contener como maximo 30 caracteres
+        </div>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label>Teléfono</label>
+      <input
+        type="text"
+        class="form-control"
+        id="telefono"
+        [(ngModel)]="cliente.telefono"
+        name="telefono"
+        required
+        placeholder="Digite el teléfono del cliente"
+        minlength="9"
+        maxlength="10"
+        pattern="[0-9]*"
+        #telefono="ngModel"
+      />
+      <div
+        class="alert alert-danger"
+        *ngIf="telefono.invalid && (telefono.dirty || telefono.touched)"
+      >
+        <div *ngIf="telefono.errors?.['required']">
+          El teléfono es obligatorio
+        </div>
+        <div *ngIf="telefono.errors?.['minlength']">
+          El teléfono debe contener 9 números como minimo
+        </div>
+        <div *ngIf="telefono.errors?.['maxlength']">
+          El teléfono debe contener 10 números como maximo
+        </div>
+        <div *ngIf="telefono.errors?.['pattern']">
+          El teléfono debe contener solo números
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Direccion</label>
+      <input
+        type="text"
+        class="form-control"
+        oninput="this.value = this.value.toUpperCase()"
+        (blur)="cliente.direccion = eliminarEspaciosEnBlanco(cliente.direccion)"
+        id="direccion"
+        [(ngModel)]="cliente.direccion"
+        name="direccion"
+        required
+        minlength="5"
+        maxlength="30"
+        placeholder="Digite la direccion del cliente "
+        #direccion="ngModel"
+      />
+      <div
+        class="alert alert-danger"
+        *ngIf="direccion.invalid && (direccion.dirty || direccion.touched)"
+      >
+        <div *ngIf="direccion.errors?.['required']">
+          La direccion del cliente son obligatorios
+        </div>
+        <div *ngIf="direccion.errors?.['minlength']">
+          La direccion del cliente deben contener como minimo 5 caracteres
+        </div>
+        <div *ngIf="direccion.errors?.['maxlength']">
+          La direccion del cliente deben contener como maximo 30 caracteres
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Email</label>
+      <input
+        type="email"
+        class="form-control"
+        oninput="this.value = this.value.toLowerCase()"
+        (blur)="cliente.email = eliminarEspaciosEnBlanco(cliente.email)"
+        id="email"
+        [(ngModel)]="cliente.email"
+        name="email"
+        required
+        placeholder="Digite el correo institucional del cliente"
+        minlength="10"
+        maxlength="40"
+        pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}"
+        #email="ngModel"
+      />
+      <div
+        class="alert alert-danger"
+        *ngIf="email.invalid && (email.dirty || email.touched)"
+      >
+        <div *ngIf="email.errors?.['required']">
+          El correo del cliente es obligatorio
+        </div>
+        <div *ngIf="email.errors?.['minlength']">
+          El correo del cliente debe contener 8 caracteres como mínimo
+        </div>
+        <div *ngIf="email.errors?.['maxlength']">
+          El correo del cliente debe contener 40 caracteres como máximo
+        </div>
+        <div *ngIf="email.errors?.['pattern']">
+          El correo del cliente debe contener una estructura correcta ejm:
+          luis.carrion@05d03.mspz3.gob.ec
+        </div>
+      </div>
+    </div>
+
+
+    <br />
+    <button class="btn btn-success" [disabled]="!clienteForm.form.valid">
+      Guardar
+    </button>
+  </form>
+</div>

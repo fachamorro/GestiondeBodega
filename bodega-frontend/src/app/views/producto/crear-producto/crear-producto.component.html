@@ -1,0 +1,105 @@
+<div class="col-md-6 offset-md-3">
+  <h5>Registro de Productos</h5>
+  <form (ngSubmit)="onSubmit()" #productoForm="ngForm">
+    <input
+      type="hidden"
+      class="form-control"
+      id="id"
+      [(ngModel)]="producto.id"
+      name="id"
+    />
+
+    <div class="form-group">
+      <label>Descripción</label>
+      <input
+        type="text"
+        class="form-control"
+        oninput="this.value = this.value.toUpperCase()"
+        (blur)="producto.descripcion = eliminarEspaciosEnBlanco(producto.descripcion)"
+        id="descripcion"
+        [(ngModel)]="producto.descripcion"
+        name="descripcion"
+        required
+        minlength="3"
+        maxlength="50"
+        placeholder="Digite la descripcion del producto "
+        #descripcion="ngModel"
+      />
+      <div
+        class="alert alert-danger"
+        *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)"
+      >
+        <div *ngIf="descripcion.errors?.['required']">
+          La descripcion del producto son obligatorios
+        </div>
+        <div *ngIf="descripcion.errors?.['minlength']">
+          La descripcion del producto deben contener como minimo 3 caracteres
+        </div>
+        <div *ngIf="descripcion.errors?.['maxlength']">
+          La descripcion del producto deben contener como maximo 50 caracteres
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Estado</label><br />
+      <div
+        *ngFor="let status of estadoProducto; let indx = index"
+        class="btn-group"
+        role="group"
+        aria-label="basic radio"
+        required
+      >
+        <input
+          name="estado"
+          type="radio"
+          class="btn-check"
+          [id]="status.name"
+          [value]="status.code"
+          [(ngModel)]="producto.estado"
+          #estado="ngModel"
+        />
+        <label [for]="status.name" class="btn btn-outline-primary" for="estado">{{
+          status.name
+        }}</label>
+
+        <div class="alert alert-danger" *ngIf="estado.invalid && (estado.dirty || estado.touched)"
+        >
+        <div *ngIf="estado.errors?.['required']">
+          El estado del producto es obligatorio
+        </div>
+      </div>
+      </div>
+    </div>
+    <div class="example-selected-value">Estado elegido: {{producto.estado}}</div>
+
+    <div class="form-group">
+      <label>Tipo de Producto</label>
+      <ng-select [items]="listaTiposProducto  | async"
+           bindLabel="descripcion"
+           class="form-select"
+           bindValue="id"
+           [(ngModel)]="producto.tipoProducto"
+           name="tipoProducto"
+           #tipoProducto="ngModel"
+           placeholder="Seleccione el tipo del Producto"
+           required
+           >
+      </ng-select>
+
+      <div class="alert alert-danger" *ngIf="tipoProducto.invalid && (tipoProducto.dirty || tipoProducto.touched) "
+        >
+        <div *ngIf="tipoProducto.errors?.['required']">
+          El tipo del producto es obligatorio
+        </div>
+      </div>
+
+    </div>
+    <br/>
+
+    <br />
+    <button class="btn btn-success" [disabled]="!productoForm.form.valid">
+      Guardar
+    </button>
+  </form>
+</div>

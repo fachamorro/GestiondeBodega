@@ -1,0 +1,67 @@
+<section class="vh-50" style="background-color: #9A616D;">
+  <div class="container py-5 h-50">
+    <div class="row d-flex justify-content-center align-items-center h-50">
+      <div class="col col-xl-10">
+        <div class="card" style="border-radius: 1rem;">
+          <div class="row g-0">
+            <div class="col-md-6 col-lg-5 d-none d-md-block">
+              <img src="assets/bodega3.png"
+                alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
+            </div>
+            <div class="col-md-6 col-lg-7 d-flex align-items-center">
+              <div class="card-body p-4 p-lg-5 text-black">
+                <form (ngSubmit)="onSubmit()" #usuarioForm="ngForm">
+                  <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Iniciar Sesión</h5>
+
+                  <div class="form-group">
+                    <label>Usuario</label>
+                    <input type="text" class="form-control"
+                      (blur)="usuario.username = eliminarEspaciosEnBlanco(usuario.username)" id="username"
+                      [(ngModel)]="usuario.username" name="username" required minlength="3" maxlength="50"
+                      placeholder="Digite el usuario" #username="ngModel" />
+                    <div class="alert alert-danger" *ngIf="username.invalid && (username.dirty || username.touched)">
+                      <div *ngIf="username.errors?.['required']">
+                        El usuario es obligatorio
+                      </div>
+                      <div *ngIf="username.errors?.['minlength']">
+                        El usuario debe contener como mínimo 3 caracteres
+                      </div>
+                      <div *ngIf="username.errors?.['maxlength']">
+                        El usuario debe contener como máximo 50 caracteres
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label>Contraseña</label>
+                    <input type="password" class="form-control" id="password" [(ngModel)]="usuario.password"
+                      name="password" required minlength="3" maxlength="50" placeholder="Digite la contraseña"
+                      #password="ngModel" />
+                    <div class="alert alert-danger" *ngIf="password.invalid && (password.dirty || password.touched)">
+                      <div *ngIf="password.errors?.['required']">
+                        La contraseña es obligatoria
+                      </div>
+                      <div *ngIf="password.errors?.['minlength']">
+                        La contraseña debe contener como minimo 3 caracteres
+                      </div>
+                      <div *ngIf="password.errors?.['maxlength']">
+                        La contraseña debe contener como maximo 50 caracteres
+                      </div>
+                    </div>
+                  </div>
+                  <br />
+
+                  <br />
+                  <button class="btn btn-success" [disabled]="!usuarioForm.form.valid">
+                    Guardar
+                  </button>
+                </form>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

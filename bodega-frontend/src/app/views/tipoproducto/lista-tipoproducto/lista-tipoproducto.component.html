@@ -1,0 +1,26 @@
+<h5>Lista de Tipos de Productos</h5>
+
+<table class="table table-striped">
+  <thead class="table-dark">
+    <tr>
+      <th>ID</th>
+      <th>Descripción</th>
+      <th>Fecha de Registro</th>
+      <th>Opciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor= "let tipoproducto of listaTiposProductos">
+
+      <td>{{tipoproducto.id}}</td>
+      <td>{{tipoproducto.descripcion}}</td>
+      <td>{{tipoproducto.fechaRegistroTipoProducto}}</td>
+      <td>
+        <button (click)="actualizarTipoProductoId(tipoproducto.id)" class="btn btn-info">Editar</button>
+        <button (click)="eliminarTipoProductoId(tipoproducto.id)" class="btn btn-danger" style="margin-left : 10px;">Eliminar</button>
+        <button (click)="verDetallesTipoProducto(tipoproducto.id)" class="btn btn-primary" style="margin-left : 10px;">Detalles</button>
+      </td>
+
+    </tr>
+  </tbody>
+</table>
