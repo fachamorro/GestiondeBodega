@@ -1,14 +1,5 @@
-#from datetime import date, datetime
 from django.db import models
-#from enum import unique
-#from pyexpat import model
-#from random import choices
-#from unicodedata import decimal
-#from django.conf import settings
-#from django.forms import DateTimeField
-#from django.core.exceptions import ValidationError
 
-# Create your models here.
 class TipoProducto(models.Model):
     id=models.AutoField(primary_key=True)
     descripcion = models.TextField(max_length=50,help_text="Ingrese el Tipo de producto")
