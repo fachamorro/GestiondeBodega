@@ -1,0 +1,239 @@
+<div class="row">
+  <div class="col-md-4 ">
+    <h5>Agregar Items a Orden de Compra</h5>
+    <form (ngSubmit)="onSubmitItem()" #ItemOrdenCompraForm="ngForm">
+      <div class="form-group">
+        <label>Lista de Productos</label>
+        <ng-select [items]="listaProducto  | async"
+             bindLabel="descripcion"
+             class="form-select"
+             bindValue="id"
+             [(ngModel)]="itemordencompra.producto"
+             name="producto"
+             #producto="ngModel"
+             placeholder="Seleccione el Producto"
+             required
+             >
+        </ng-select>
+
+        <div class="alert alert-danger" *ngIf="producto.invalid && (producto.dirty || producto.touched) "
+          >
+          <div *ngIf="producto.errors?.['required']">
+            Seleccione un producto
+          </div>
+        </div>
+
+      </div>
+
+      <div class="form-group">
+        <label>Lote</label>
+        <input
+          type="text"
+          class="form-control"
+          id="lote"
+          minlength="3"
+          maxlength="15"
+          oninput="this.value = this.value.toUpperCase()"
+          [(ngModel)]="itemordencompra.lote"
+          name="lote"
+          required
+          placeholder="Digite el lote del producto "
+          #lote="ngModel"
+        />
+        <div
+          class="alert alert-danger"
+          *ngIf="lote.invalid && (lote.dirty || lote.touched)"
+        >
+          <div *ngIf="lote.errors?.['required']">
+            El lote del producto es obligatorio
+          </div>
+          <div *ngIf="lote.errors?.['minlength']">
+            El lote del producto debe contener como minimo 3 caracteres
+          </div>
+          <div *ngIf="lote.errors?.['maxlength']">
+            El lote del producto  debe contener como maximo 50 caracteres
+          </div>
+        </div>
+      </div>
+
+
+      <div class="form-group">
+        <label>Cantidad</label>
+        <input
+          type="text"
+          class="form-control"
+          id="cantidad"
+          minlength="1"
+          maxlength="5"
+          pattern="[0-9]*"
+          [(ngModel)]="itemordencompra.cantidad"
+          name="cantidad"
+          required
+          appControlFormatNumber
+          placeholder="Digite la cantidad del producto "
+          #cantidad="ngModel"
+        />
+        <div
+          class="alert alert-danger"
+          *ngIf="cantidad.invalid && (cantidad.dirty || cantidad.touched)"
+        >
+          <div *ngIf="cantidad.errors?.['required']">
+            La cantidad del producto es obligatorio
+          </div>
+          <div *ngIf="cantidad.errors?.['minlength']">
+            La cantidad del producto debe contener como minimo 3 caracteres
+          </div>
+          <div *ngIf="cantidad.errors?.['maxlength']">
+            La cantidad del producto  debe contener como maximo 50 caracteres
+          </div>
+          <div *ngIf="cantidad.errors?.['pattern']">
+            La cantidad del producto  debe contener solo números
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Precio Unitario</label>
+        <input
+          type="number"
+          class="form-control"
+          id="preciou"
+          minlength="1"
+          maxlength="15"
+          [(ngModel)]="itemordencompra.precioUnitario"
+          name="preciou"
+          required
+          appControlDecimalNumber
+          placeholder="Digite el Precio Unitario del producto "
+          #preciou="ngModel"
+
+        />
+        <div
+          class="alert alert-danger"
+          *ngIf="preciou.invalid && (preciou.dirty || preciou.touched)"
+        >
+          <div *ngIf="preciou.errors?.['required']">
+            El Precio U. del producto es obligatorio
+          </div>
+          <div *ngIf="preciou.errors?.['minlength']">
+            El Precio U. del producto debe contener como minimo 3 caracteres
+          </div>
+          <div *ngIf="preciou.errors?.['maxlength']">
+            El Precio U. del producto  debe contener como maximo 50 caracteres
+          </div>
+        </div>
+      </div>
+
+
+      <br />
+      <button class="btn btn-success" [disabled]="!ItemOrdenCompraForm.form.valid">
+        Agregar
+      </button>
+    </form>
+    </div>
+    <div class="col-md-8">
+      <h5>Registro de Ordenes de Compra</h5>
+      <form (ngSubmit)="onSubmit()" #ordencompraForm="ngForm">
+        <input
+          type="hidden"
+          class="form-control"
+          id="id"
+          [(ngModel)]="ordencompra.id"
+          name="id"
+        />
+        <div class="form-group">
+          <label>Proveedor</label>
+          <ng-select [items]="listaProveedor  | async"
+               bindLabel="razonSocial"
+               class="form-select"
+               bindValue="id"
+               [(ngModel)]="ordencompra.proveedor"
+               name="proveedor"
+               #proveedor="ngModel"
+               placeholder="Seleccione el Proveedor"
+               required
+               >
+          </ng-select>
+
+          <div class="alert alert-danger" *ngIf="proveedor.invalid && (proveedor.dirty || proveedor.touched) "
+            >
+            <div *ngIf="proveedor.errors?.['required']">
+              El proveedor es obligatorio
+            </div>
+          </div>
+
+        </div>
+
+        <div class="form-group">
+          <label>Fecha de Orden de Compra</label>
+          <input
+            type="date"
+            class="form-control"
+            id="fechaCompra"
+            [(ngModel)]="ordencompra.fechaCompra"
+            name="fechaCompra"
+            required
+            minlength="3"
+            maxlength="50"
+            placeholder="Digite la fechaCompra del ordencompra "
+            #fechaCompra="ngModel"
+          />
+          <div
+            class="alert alert-danger"
+            *ngIf="fechaCompra.invalid && (fechaCompra.dirty || fechaCompra.touched)"
+          >
+            <div *ngIf="fechaCompra.errors?.['required']">
+              La fecha del ordencompra son obligatorios
+            </div>
+            <div *ngIf="fechaCompra.errors?.['minlength']">
+              La fecha es obligatoria
+            </div>
+            <div *ngIf="fechaCompra.errors?.['maxlength']">
+              La fecha es obligatoria
+            </div>
+          </div>
+        </div>
+
+        <br/>
+        <table class="table table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>ID</th>
+              <th>Producto</th>
+              <th>Lote</th>
+              <th>Cantidad</th>
+              <th>Precio U.</th>
+              <th>Valor T.</th>
+              <th>Opciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor= "let itemordencompra of ListaItems">
+
+              <td>{{itemordencompra.id}}</td>
+              <td>{{itemordencompra.productodescripcion}}</td>
+              <td>{{itemordencompra.lote}}</td>
+              <td>{{itemordencompra.cantidad}}</td>
+              <td>{{itemordencompra.precioUnitario}}</td>
+              <td>{{itemordencompra.valorTotalItem}}</td>
+              <td>
+                <button (click)="eliminarItemOrdencompraId(itemordencompra.id)" class="btn btn-danger" style="margin-left : 10px;">Eliminar</button>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th colspan="4"></th>
+              <th colspan="1"><h3>TOTAL</h3></th>
+              <th><h3>{{ordencompra.valorTotal}}</h3></th>
+            </tr>
+          </tfoot>
+        </table>
+        <br />
+        <button class="btn btn-success" [disabled]="!ordencompraForm.form.valid">
+          Guardar
+        </button>
+      </form>
+    </div>
+
+</div>

@@ -1,0 +1,49 @@
+<h5>Lista de Productos</h5>
+
+<table class="table table-striped">
+  <thead class="table-dark">
+    <tr>
+      <th>ID</th>
+      <th>Descripción</th>
+      <th>Cantidad</th>
+      <th>Fecha de Registro</th>
+      <th>Tipo</th>
+
+      <th>Opciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let producto of listaProductos
+    | paginate
+    : {
+        itemsPerPage: tableSize,
+        currentPage: page,
+        totalItems: count
+      };
+    let i = index">
+
+      <td>{{i+1}}</td>
+      <td>{{producto.descripcion}}</td>
+      <td>{{producto.cantidad}}</td>
+      <td>{{producto.fechaRegistroProducto}}</td>
+      <td>{{producto.tipoProducto}}</td>
+
+      <td>
+        <button (click)="actualizarProductoId(producto.id)" class="btn btn-info">Editar</button>
+        <button (click)="eliminarProductoId(producto.id)" class="btn btn-danger"
+          style="margin-left : 10px;">Eliminar</button>
+        <button (click)="verDetallesProducto(producto.id)" class="btn btn-primary"
+          style="margin-left : 10px;">Detalles</button>
+      </td>
+
+    </tr>
+  </tbody>
+</table>
+<div class="d-flex justify-content-center">
+  <pagination-controls
+    previousLabel="Prev"
+    nextLabel="Next"
+    (pageChange)="onTableDataChange($event)"
+  >
+  </pagination-controls>
+</div>

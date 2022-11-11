@@ -1,0 +1,62 @@
+<br>
+<br>
+<div class="card">
+<br>
+<br>
+<h3 class="text-center">Orden de Compra Nro. {{ordencompra.id}}</h3>
+<br>
+<h4>Datos Generales</h4>
+<br>
+<br>
+<table class="table">
+  <tbody>
+    <tr>
+      <td><h5>Fecha de Orden de Compra</h5></td>
+      <td>{{ordencompra.fechaCompra}}</td>
+      <td><h5>Proveedor</h5></td>
+      <td>{{proveedor.razonSocial}}</td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<h4>Detalle de la Orden de Compra</h4>
+<br>
+<table class="table table-striped text-center">
+  <thead class="table-dark">
+    <tr>
+      <th>ID</th>
+      <th>Descripcion</th>
+      <th>Cantidad</th>
+      <th>Lote</th>
+      <th>Precio U.</th>
+      <th>Valor Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor= "let itemordencompra of listaItemsOrdencompraDetalle
+    ">
+
+      <td >{{itemordencompra.id}}</td>
+      <td>{{itemordencompra.productodescripcion}}</td>
+      <td>{{itemordencompra.cantidad}}</td>
+      <td>{{itemordencompra.lote}}</td>
+      <td>{{itemordencompra.precioUnitario}}</td>
+      <td>{{itemordencompra.valorTotalItem}}</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <th colspan="4"></th>
+      <th colspan="1"><h3>TOTAL</h3></th>
+      <th><h3>{{ordencompra.valorTotal}}</h3></th>
+    </tr>
+
+  </tfoot>
+</table>
+
+<div class="d-flex justify-content-center">
+
+  <button (click)="irListaOrdencompras()" class="btn btn-info" style="margin-left : 10px;">Regresar</button>
+  <button (click)="printThisPage()"  class="btn btn-warning" >Imprimir</button>
+
+</div>

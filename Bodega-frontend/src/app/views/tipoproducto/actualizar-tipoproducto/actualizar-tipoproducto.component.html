@@ -1,0 +1,52 @@
+<div class="col-md-6 offset-md-3">
+  <h5>Actualizar Tipo de Productos</h5>
+  <form (ngSubmit)="onSubmit()" #productoForm="ngForm">
+    <input
+      type="hidden"
+      class="form-control"
+      id="id"
+      [(ngModel)]="tipoproducto.id"
+      name="id"
+    />
+
+    <div class="form-group">
+      <label>Descripción</label>
+      <input
+        type="text"
+        class="form-control"
+        oninput="this.value = this.value.toUpperCase()"
+        (blur)="tipoproducto.descripcion = eliminarEspaciosEnBlanco(tipoproducto.descripcion)"
+        id="descripcion"
+        [(ngModel)]="tipoproducto.descripcion"
+        name="descripcion"
+        required
+        minlength="3"
+        maxlength="30"
+        placeholder="Digite la descripcion de la categoría del producto "
+        #descripcion="ngModel"
+      />
+      <div
+        class="alert alert-danger"
+        *ngIf="descripcion.invalid && (descripcion.dirty || descripcion.touched)"
+      >
+        <div *ngIf="descripcion.errors?.['required']">
+          La descripcion de la categoría del producto es obligatoria
+        </div>
+        <div *ngIf="descripcion.errors?.['minlength']">
+          La descripcion de la categoría del producto debe contener como minimo 3 caracteres
+        </div>
+        <div *ngIf="descripcion.errors?.['maxlength']">
+          La descripcion de la categoría del producto debe contener como maximo 30 caracteres
+        </div>
+      </div>
+    </div>
+
+
+    <br/>
+
+    <br />
+    <button class="btn btn-success" [disabled]="!productoForm.form.valid">
+      Guardar
+    </button>
+  </form>
+</div>
